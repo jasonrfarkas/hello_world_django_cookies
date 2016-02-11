@@ -1,0 +1,16 @@
+[vagrant]
+192.168.33.12
+
+[vagrant:vars]
+vm=1
+user=vagrant
+project_path=/home/vagrant/hello_world_django_cookies
+django_requirements_file=requirements/development.txt
+
+[production]
+hello_world.com
+
+[production:vars]
+user=ubuntu
+project_path=/home/vagrant/hello_world_django_cookies
+django_requirements_file=requirements.txt

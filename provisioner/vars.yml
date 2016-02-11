@@ -1,0 +1,7 @@
+---
+project_name: hello_world
+project_repo_url: git@github.com:jasonrfarkas/hello_world_django_cookies.git
+project_repo_remote: origin
+domain_name: hello_world.com
+repo_version: master
+py_version: 2

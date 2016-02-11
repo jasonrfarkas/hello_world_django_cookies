@@ -1,0 +1,3 @@
+[run]
+source = hello_world/
+omit = '*tests*,*commands*,*migrations*,*admin*,*wsgi*'
