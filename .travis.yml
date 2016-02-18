@@ -2,37 +2,31 @@ language: python
 sudo: false
 python:
 - '2.7'
-
 addons:
-  postgresql: "9.4"
-
+  postgresql: '9.4'
 before_script:
 - export DATABASE_URL=postgres://postgres@localhost/hello_world
 - export DJANGO_SECRET=`openssl rand -base64 32`
 - psql -c "CREATE DATABASE hello_world;" -U postgres
-
 install:
-  - pip install ansible
-  - pip install -r requirements/development.txt
-
+- pip install ansible
+- pip install -r requirements/development.txt
 script:
 - flake8
 - py.test --cov -v --tb=native
 - ansible-playbook -i provisioner/hosts provisioner/site.yml --syntax-check
-
 notifications:
   email:
-    on_success: change  # [always|never|change]
-    on_failure: always  # [always|never|change]
+    on_success: change
+    on_failure: always
 deploy:
   provider: heroku
   buildpack: python
   strategy: api
   api_key:
-    # travis encrypt $(heroku auth:token) --add deploy.api_key
-    secure: <add_heroku_auth_token_here>
+    secure: tTZxNS2d8ofCJs5qlItmCL9DVRKUpeO34/JogZXqMb31fAx9knqnQs8kHyazZCQoe0D+Q4Xw29DMgSF6WK5cDscw1bqvWDfigtZe7I3XhzGrlS+nRrtjwtHMIw8G7VM70PFpzMN98ObiaquvkkLKSyAFcELHXR0WcRRX9ioUnCIXlsRI+5wRkHwvsXkbpW7i1P8nyFB6gl9n81nTQWYnxDeKiUZ+KFulJwWioU+ECmkPAgOU0/IWrOqzpUvonGAAiJbTFizdKF3cm65DoYUm6m9Y74D2/RTE6lfGBQrtdbrUeP7Cuct5L4xmS5bA/qh6ns/7v8TYZoaOzGffvhwYW448a6RlT2npMcvJVy5Bu6s1PI87tMSrbOpoofwxnjDgDufkFGAyZHu7usMy8xwwtqf1LDxylJb8A7uQBGzGSjROmtVJ3nQXq99X9YbApSLwOcS6w3Yz5REMr6k9yLST5lGq848FbhbkEAy3a+uwBTfMna5rPpA1r7z4m1Y2yLV+C/oEDmIDB/krmaKRHG6Lj9jGEI38OYoDJEjgjaqWnOhxPFkL3DMICpX5BKdIDSUNzPMCdD+f5zHCx7TVo2flo522/CYSyHlpGy4VXz++uf9pyMOX7ZegICDs9SIICxtJKkGQiRbZ+JBlIsc6f1KvpbhOWPFLyYxIY7qqcA+Up8E=
   app:
-    master: hello_world-dev
+    master: hello-world-django-cookies
     qa: hello_world-qa
     prod: hello_world-prod
   on:
